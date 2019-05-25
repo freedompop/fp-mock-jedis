@@ -253,4 +253,30 @@ public class MockJedisTest {
 
 		assertEquals(result, 2l);
 	}
+
+	@Test
+	public void testLTrimString() {
+		j.rpush("key", "one", "two", "three");
+
+
+		j.ltrim("key", 1, -1);
+
+
+		List<String> result = j.lrange("key", 0, -1);
+		assertEquals(result, Arrays.asList("two", "three"));
+	}
+
+	@Test
+	public void testLTrimBytes() {
+		j.rpush("key".getBytes(), "one".getBytes(), "two".getBytes(), "three".getBytes());
+
+
+		j.ltrim("key".getBytes(), 1, -1);
+
+
+		List<byte[]> result = j.lrange("key".getBytes(), 0, -1);
+		assertEquals(result.size(), 2);
+		assertArrayEquals(result.get(0), "two".getBytes());
+		assertArrayEquals(result.get(1), "three".getBytes());
+	}
 }

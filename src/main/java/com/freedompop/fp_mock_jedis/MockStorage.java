@@ -869,5 +869,35 @@ public class MockStorage {
 
         return list;
     }
+
+    public void ltrim(DataContainer key, long start, long end) {
+        List<DataContainer> list = getListFromStorage(key, false);
+
+        if (list != null) {
+            start = calculateListIndex(start, list.size());
+            end = calculateListIndex(end, list.size());
+
+            for (int i = list.size() - 1; i > end; i--) {
+                list.remove(i);
+            }
+
+            for (int i = 0; i < start; i++) {
+                list.remove(0);
+            }
+        }
+    }
+
+    private long calculateListIndex(long value, long max) {
+
+        if (value < 0l) {
+            return Math.max(max + value, 0l);
+        }
+
+        if (value > max) {
+            return max;
+        }
+
+        return value;
+    }
 }
 

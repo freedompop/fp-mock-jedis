@@ -1227,5 +1227,22 @@ public class MockPipeline extends Pipeline {
 
         return response;
     }
+
+    @Override
+    public Response<String> ltrim(String key, long start, long end) {
+        return ltrim(DataContainer.from(key), start, end);
+    }
+
+    @Override
+    public Response<String> ltrim(byte[] key, long start, long end) {
+        return ltrim(DataContainer.from(key), start, end);
+    }
+
+    private Response<String> ltrim(DataContainer key, long start, long end) {
+        final Response<String> response = new Response<String>(BuilderFactory.STRING);
+        mockStorage.ltrim(key, start, end);
+        response.set("OK".getBytes());
+        return response;
+    }
 }
 

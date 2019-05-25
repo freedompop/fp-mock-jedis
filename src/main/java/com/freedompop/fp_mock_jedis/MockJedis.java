@@ -811,7 +811,8 @@ public class MockJedis extends Jedis {
 
 	@Override
 	public String ltrim(String key, long start, long end) {
-		throw new UnsupportedOperationException(NOT_IMPLEMENTED);
+        Response<String> response = pipeline.ltrim(key, start, end);
+        return response.get();
 	}
 
 	@Override
@@ -1554,7 +1555,8 @@ public class MockJedis extends Jedis {
 
 	@Override
 	public String ltrim(byte[] key, long start, long end) {
-		throw new UnsupportedOperationException(NOT_IMPLEMENTED);
+        Response<String> response = pipeline.ltrim(key, start, end);
+        return response.get();
 	}
 
 	@Override
