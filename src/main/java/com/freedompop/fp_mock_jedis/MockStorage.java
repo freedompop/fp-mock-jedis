@@ -850,5 +850,24 @@ public class MockStorage {
 		dst.addAll(inter);
 		return inter.size();
 	}
+
+    public synchronized int rpush(final DataContainer key, final DataContainer... string) {
+        List<DataContainer> list = findOrCreate(key);
+
+        Collections.addAll(list, string);
+
+        return list.size();
+    }
+
+    private List<DataContainer> findOrCreate(final DataContainer key) {
+        List<DataContainer> list = getListFromStorage(key, true);
+
+        if (list == null) {
+            list = new ArrayList<DataContainer>();
+            listStorage.put(key, list);
+        }
+
+        return list;
+    }
 }
 

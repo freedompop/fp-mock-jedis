@@ -239,4 +239,18 @@ public class MockJedisTest {
 		assertEquals(2L, scanResult.getResult().size());
 		assertEquals("0", scanResult.getStringCursor());
 	}
+
+	@Test
+	public void testRPushString() {
+		long result = j.rpush("key", "val1", "val2");
+
+		assertEquals(result, 2l);
+	}
+
+	@Test
+	public void testRPushBytes() {
+		long result = j.rpush("key".getBytes(), "val1".getBytes(), "val2".getBytes());
+
+		assertEquals(result, 2l);
+	}
 }
