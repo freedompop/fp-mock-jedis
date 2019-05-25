@@ -555,13 +555,17 @@ public class MockStorage {
 			list = new ArrayList<DataContainer>();
 			listStorage.put(key, list);
 		}
-		Collections.addAll(list, string);
+
+        for (DataContainer dc : string) {
+            list.add(0, dc);
+        }
+
 		return list.size();
 	}
 
 	public synchronized DataContainer lpop(final DataContainer key) {
 		final List<DataContainer> list = getListFromStorage(key, true);
-		return list == null || list.isEmpty() ? null : list.remove(list.size() - 1);
+        return list == null || list.isEmpty() ? null : list.remove(0);
 	}
 
 	public synchronized int llen(final DataContainer key) {
