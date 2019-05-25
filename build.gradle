@@ -11,7 +11,7 @@ project.ext {
 }
 
 group = 'com.freedompop'
-version = '2.6.0.0' + (snapshot ? '-SNAPSHOT' : '')
+version = '2.6.0.1' + (snapshot ? '-SNAPSHOT' : '')
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
