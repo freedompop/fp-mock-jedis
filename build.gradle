@@ -1,10 +1,17 @@
-apply plugin: 'java'
-apply plugin: 'maven'
-apply plugin: 'signing'
-apply plugin: 'eclipse'
+plugins {
+    id 'java'
+    id 'maven'
+    id 'signing'
+    id 'maven-publish'
+}
 
-group = 'com.fiftyonred'
-version = '0.4.0'
+project.ext {
+    snapshot = project.property('build.snapshot').equals('true')
+    artifactoryLibPath = snapshot ? "libs-snapshot-local" : "libs-release-local"
+}
+
+group = 'com.freedompop'
+version = '2.6.0.0' + (snapshot ? '-SNAPSHOT' : '')
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
@@ -18,10 +25,6 @@ dependencies {
     testCompile 'junit:junit:4.11'
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.0'
-}
-
 task javadocJar(type: Jar, dependsOn: javadoc) {
     from project.tasks.javadoc.destinationDir
     classifier = 'javadoc'
@@ -32,52 +35,69 @@ task sourcesJar(type: Jar) {
     classifier = 'sources'
 }
 
-artifacts {
-    archives jar
-    archives javadocJar
-    archives sourcesJar
+task printConfiguration() {
+    println "version: ${version}"
+    println "snapshot: ${snapshot}"
+    println "artifactoryLibPath: ${artifactoryLibPath}"
+}
+
+publishing {
+
+    publications {
+
+        mavenJava(MavenPublication) {
+            from components.java
+
+            artifact javadocJar
+            artifact sourcesJar
+
+            pom {
+                name = 'fp-mock-jedis'
+                description = 'Mock Jedis is a library for mocking out Jedis clients'
+                url = 'https://github.com/freedompop/fp-mock-jedis'
+
+                licenses {
+                    license {
+                        name = 'MIT'
+                        url = 'https://raw.github.com/freedompop/fp-mock-jedis/master/LICENSE'
+                        distribution = 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'idyedov'
+                        name = 'Ivan Dyedov'
+                    }
+                    developer {
+                        id = 'snishimura'
+                        name = 'Scott Nishimura'
+                    }
+                }
+
+                scm {
+                    url = 'scm:git@github.com:freedompop/fp-mock-jedis.git'
+                    connection = 'scm:git@github.com:freedompop/fp-mock-jedis.git'
+                    developerConnection = 'scm:git@github.com:freedompop/fp-mock-jedis.git'
+                }
+            }
+        }
+    }
+
+    repositories {
+
+        maven {
+
+            credentials {
+                username = project.property('artifactory.user')
+                password = project.property('artifactory.password')
+            }
+
+            url = project.property('artifactory.url') + artifactoryLibPath
+        }
+    }
 }
 
 signing {
-    sign configurations.archives
-}
-
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-              authentication(userName: sonatypeUsername, password: sonatypePassword)
-            }
-
-            pom.project {
-               name 'mock-jedis'
-               packaging 'jar'
-               description 'Mock Jedis is a library for mocking out Jedis clients'
-               url 'https://github.com/50onRed/mock-jedis'
-
-               scm {
-                   url 'scm:git@github.com:50onRed/mock-jedis.git'
-                   connection 'scm:git@github.com:50onRed/mock-jedis.git'
-                   developerConnection 'scm:git@github.com:50onRed/mock-jedis.git'
-               }
-
-               licenses {
-                   license {
-                       name 'MIT'
-                       url 'https://raw.github.com/50onRed/mock-jedis/master/LICENSE'
-                       distribution 'repo'
-                   }
-               }
-
-               developers {
-                   developer {
-                       id 'idyedov'
-                       name 'Ivan Dyedov'
-                   }
-               }
-           }
-        }
-    }
+    sign publishing.publications.mavenJava
 }

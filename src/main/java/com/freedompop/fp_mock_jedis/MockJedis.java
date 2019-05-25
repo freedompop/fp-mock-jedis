@@ -1,14 +1,10 @@
-package com.fiftyonred.mock_jedis;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.ArrayList;
-import java.util.Collection;
+package com.freedompop.fp_mock_jedis;
 
 import redis.clients.jedis.*;
 import redis.clients.util.Pool;
 import redis.clients.util.Slowlog;
+
+import java.util.*;
 
 import static redis.clients.jedis.Protocol.Keyword.MATCH;
 

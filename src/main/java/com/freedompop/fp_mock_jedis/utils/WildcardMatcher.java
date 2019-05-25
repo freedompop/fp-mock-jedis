@@ -1,4 +1,4 @@
-package com.fiftyonred.utils;
+package com.freedompop.fp_mock_jedis.utils;
 
 import java.util.regex.Pattern;
 

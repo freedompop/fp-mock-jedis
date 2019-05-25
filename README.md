@@ -2,8 +2,12 @@
 
 Mock Jedis is a library for mocking out [Jedis](https://github.com/xetorthio/jedis) clients.
 It's useful for testing your code without actually having a live redis server up.
-Currently, mock-jedis supports pipelining and all the basic Jedis commands, but if you find missing 
+Currently, fp-mock-jedis supports pipelining and all the basic Jedis commands, but if you find missing 
 functionality you're welcome to submit a pull request.
+
+This version was forked from [50onRed](https://github.com/50onRed/mock-jedis) version of mock-jedis,
+which looks like it is no longer maintained. Package was changed to avoid collisions if maintenance is
+continued on that project.
 
 ## Compile
 with gradle (preferred method):
@@ -11,11 +15,11 @@ with gradle (preferred method):
 gradle build
 ```
 
-## Adding mock-jedis to your project
+## Adding fp-mock-jedis to your project
 
 Add it as a dependency to your project.
 
-Here's a sample gradle script that will pull mock-jedis 0.4.0 from maven-central
+Here's a sample gradle script that will pull fp-mock-jedis 2.6.0.0 from maven-central
 ```gradle
 buildscript {
     repositories {
@@ -26,22 +30,22 @@ buildscript {
 apply plugin: 'java'
 
 dependencies {
-  testCompile 'com.fiftyonred:mock-jedis:0.4.0'
+  testCompile 'com.freedompop:fp-mock-jedis:2.6.0.0'
 }
 ```
 
 Sample maven dependency definition:
 ```xml
 <dependency>
-    <groupId>com.fiftyonred</groupId>
-    <artifactId>mock-jedis</artifactId>
-    <version>0.4.0</version>
+    <groupId>com.freedompop</groupId>
+    <artifactId>fp-mock-jedis</artifactId>
+    <version>2.6.0.0</version>
     <type>jar</type>
     <scope>test</scope>
 </dependency>
 ```
 
-## Using mock-jedis
+## Using fp-mock-jedis
 ```java
 Jedis j = new MockJedis("test");
 j.set("test", "123");
@@ -49,7 +53,7 @@ assertEquals("123", j.get("test"));
 ```
 
 ## Supported Commands
-Currently the following commands are supported by mock-jedis
+Currently the following commands are supported by fp-mock-jedis
  - KEYS: DEL DUMP EXISTS EXPIRE EXPIREAT KEYS PERSIST PEXPIRE PEXPIREAT PTTL RANDOMKEY RENAME RENAMENX RESTORE TTL TYPE
  - STRINGS: APPEND DECR DECRBY GET GETSET INCR INCRBY INCRBYFLOAT MGET MSET MSETNX PSETEX SET SETEX SETNX STRLEN
  - HASHES: HDEL HEXISTS HGET HGETALL HINCRBY HINCRBYFLOAT HKEYS HLEN HMGET HMSET HSET HSETNX HVALS

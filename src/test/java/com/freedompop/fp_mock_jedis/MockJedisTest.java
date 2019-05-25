@@ -1,12 +1,12 @@
-package com.fiftyonred.mock_jedis;
+package com.freedompop.fp_mock_jedis;
 
 import org.junit.Before;
 import org.junit.Test;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.SortingParams;
-import redis.clients.jedis.exceptions.JedisDataException;
 import redis.clients.jedis.ScanParams;
 import redis.clients.jedis.ScanResult;
+import redis.clients.jedis.SortingParams;
+import redis.clients.jedis.exceptions.JedisDataException;
 
 import java.util.*;
 

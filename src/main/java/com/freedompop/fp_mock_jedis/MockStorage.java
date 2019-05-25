@@ -1,13 +1,13 @@
-package com.fiftyonred.mock_jedis;
+package com.freedompop.fp_mock_jedis;
 
-import com.fiftyonred.utils.WildcardMatcher;
+import com.freedompop.fp_mock_jedis.utils.WildcardMatcher;
 import redis.clients.jedis.Protocol;
 import redis.clients.jedis.SortingParams;
 import redis.clients.jedis.exceptions.JedisDataException;
 
 import java.util.*;
 
-import static com.fiftyonred.mock_jedis.DataContainer.CHARSET;
+import static com.freedompop.fp_mock_jedis.DataContainer.CHARSET;
 
 public class MockStorage {
 

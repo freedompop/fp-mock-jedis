@@ -1,4 +1,4 @@
-package com.fiftyonred.mock_jedis;
+package com.freedompop.fp_mock_jedis;
 
 import org.junit.Test;
 import redis.clients.jedis.Jedis;

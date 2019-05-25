@@ -1,4 +1,4 @@
-package com.fiftyonred.mock_jedis;
+package com.freedompop.fp_mock_jedis;
 
 import org.junit.Before;
 import org.junit.Test;

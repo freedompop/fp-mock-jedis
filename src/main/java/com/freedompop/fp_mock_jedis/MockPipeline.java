@@ -1,11 +1,11 @@
-package com.fiftyonred.mock_jedis;
+package com.freedompop.fp_mock_jedis;
 
 import redis.clients.jedis.*;
 import redis.clients.jedis.exceptions.JedisDataException;
 
 import java.util.*;
 
-import static com.fiftyonred.mock_jedis.DataContainer.CHARSET;
+import static com.freedompop.fp_mock_jedis.DataContainer.CHARSET;
 
 public class MockPipeline extends Pipeline {
 
